@@ -1,0 +1,17 @@
+meta {
+  name: updateNote
+  type: http
+  seq: 1
+}
+
+put {
+  url: http://localhost:4001/v1/notes/69498bddc00062538c72db7f
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "newContent" : "hello there."
+  }
+}
