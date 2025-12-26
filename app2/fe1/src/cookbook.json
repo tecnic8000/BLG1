@@ -1,0 +1,23 @@
+{
+   "noodle1 | bun rieu": {
+      "desc": "\n-n servings\ntest\n",
+      "ingredient": "\neset\n",
+      "direction": "\n- do A with U tool [optional: Xmin/day]\n- do B with W tool [optional: Ymin/day]\n",
+      "pic": " 5 //meaning 5 pics total in localfiles\n",
+      "tag": ""
+   },
+   "kimbap | com cuon": {
+      "desc": "\n- serving: 3 meals\n",
+      "ingredient": "\n",
+      "direction": "\n",
+      "pic": " 2\n",
+      "tag": ""
+   },
+   "burger": {
+      "desc": "\nburgerDesc\n",
+      "ingredient": "\n",
+      "direction": "\n",
+      "pic": " 3\n",
+      "tag": ""
+   }
+}
