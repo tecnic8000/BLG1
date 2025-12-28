@@ -14,9 +14,9 @@ __Environment__ Python-dotenv / Django Environ
 JWT user sessions
 
 ## Database
-- SQLite (dev/local)
+- SQLite (unused - dev/local)
 - Prisma Postgres (main)
-
+- MongoDB to store session data, 
 
 
 ## DevOps / Deployment

@@ -5,8 +5,10 @@
   "license": "ISC",
   "author": "devmhoang",
   "type": "module",
-  "main": "server.tsx",
+  "main": "src/server.tsx",
   "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -14,9 +16,20 @@
     "@upstash/redis": "^1.36.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "mongoose": "^9.0.2"
+    "express-session": "^1.18.2",
+    "mongoose": "^9.0.2",
+    "openid-client": "^6.8.1",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.3",
+    "@types/pg": "^8.16.0",
+    "nodemon": "^3.1.11",
+    "prisma": "^7.2.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

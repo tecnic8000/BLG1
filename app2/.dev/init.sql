@@ -19,5 +19,5 @@ VALUES
     ('11eebc99-9c0b-4ef8-bb6d-6bb9bd380a88', 'b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', ARRAY[2, 5], 'Party supplies', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234568'),
     ('12eebc99-9c0b-4ef8-bb6d-6bb9bd380a99', 'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', ARRAY[3, 2, 4], 'Home essentials', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234569'),
     ('13eebc99-9c0b-4ef8-bb6d-6bb9bd380aaa', 'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', ARRAY[4], 'Quick snack run', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234570'),
-    ('14eebc99-9c0b-4ef8-bb6d-6bb9bd380abb', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', ARRAY[5, 2, 3, 4], 'Office supplies audit', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234571');
+    ('14eebc99-9c0b-4ef8-bb6d-6bb9bd380abb', 'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', ARRAY[5, 2, 3, 4], 'Office supplies audit', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234571');
 

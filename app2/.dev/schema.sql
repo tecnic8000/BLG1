@@ -1,23 +1,29 @@
+BEGIN;
+
 CREATE SCHEMA IF NOT EXISTS blg1a2_staging;
 
 CREATE TABLE blg1a2_staging.users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
-    email TEXT UNIQUE, -- REQUIRED
-    phone TEXT UNIQUE DEFAULT NULL,
-    auth_provider TEXT DEFAULT NULL,
-    pwd TEXT, -- auth -- REQUIRED
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone TEXT UNIQUE,
+    auth_provider TEXT,
+    pwd TEXT, -- OAuth
     pin INTEGER DEFAULT NULL,
     role VARCHAR(255), -- CHECK (role IN ('customer', 'merchant', 'partner', 'runner', 'driver', 'moderator', 'admin', 'employee')), -- role: user/customer, merchant/partner, runner/driver, moderator/employee. admin
     is_verified BOOLEAN DEFAULT FALSE, -- security
     is_active BOOLEAN DEFAULT TRUE, -- to monitor inactive/deactivated account
     verify_token TEXT,
     verify_token_expire TIMESTAMP,
-    reset_token TEXT DEFAULT NULL,
+    reset_token TEXT,
     reset_token_expire TIMESTAMP,
     last_login TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- metadata
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_user_is_verified ON blg1a2_staging.users (is_verified);
+
+CREATE INDEX idx_user_is_active ON blg1a2_staging.users (is_active);
 
 CREATE TABLE blg1a2_staging.profiles (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
@@ -29,14 +35,22 @@ CREATE TABLE blg1a2_staging.profiles (
     CONSTRAINT fk_profile_user FOREIGN KEY (user_id) REFERENCES blg1a2_staging.users (id)
 );
 
+CREATE INDEX idx_profile_score ON blg1a2_staging.profiles (score);
+
+CREATE INDEX idx_profile_noti_pref ON blg1a2_staging.profiles (noti_pref);
+
 CREATE TABLE blg1a2_staging.shoplists (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     user_id UUID NOT NULL,
-    list_detail INT[],
+    list_detail INT[] NOT NULL,
     note VARCHAR(225),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- metadata
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     longid TEXT, -- unix time in ms for debugging
     CONSTRAINT fk_shoplist_user FOREIGN KEY (user_id) REFERENCES blg1a2_staging.users (id)
 );
+
+CREATE INDEX idx_shoplist_list_detail ON blg1a2_staging.shoplists (list_detail);
+
+COMMIT;
 

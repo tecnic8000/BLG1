@@ -1,6 +1,7 @@
-import ratelimit from "../config/upstash.js";
+import { Request, Response, NextFunction } from 'express';
+import ratelimit from "../config/upstash";
 
-export async function rateLimiter(req, res, next) {
+export async function rateLimiter(req:Request, res:Response, next:NextFunction) {
      try {
           // per user --> john cena
           const { success } = await ratelimit.limit("my-limit-key1") // userId: johnCena
