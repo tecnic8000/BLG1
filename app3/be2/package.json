@@ -1,19 +1,15 @@
 {
-  "name": "be1",
+  "name": "be2",
   "version": "1.0.0",
   "description": "",
-  "main": "3crkBE1.js",
+  "license": "ISC",
+  "author": "devmhoang",
+  "type": "module",
+  "main": "server.tsx",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
   "dependencies": {
-    "@prisma/client": "^7.2.0",
     "@upstash/ratelimit": "^2.0.7",
     "@upstash/redis": "^1.36.0",
     "dotenv": "^17.2.3",
@@ -21,7 +17,6 @@
     "mongoose": "^9.0.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11",
-    "prisma": "^7.2.0"
+    "nodemon": "^3.1.11"
   }
 }

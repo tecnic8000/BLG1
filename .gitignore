@@ -183,3 +183,48 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# LOCAL MACHINE
+.DS_Store
+
+
+# BACKEND1
+
+# python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+
+# Virtual environment
+venv/
+.env
+*.env
+
+# FRONTEND1
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
