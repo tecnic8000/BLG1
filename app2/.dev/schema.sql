@@ -1,8 +1,8 @@
 BEGIN;
 
-CREATE SCHEMA IF NOT EXISTS blg1a2_staging;
+CREATE SCHEMA IF NOT EXISTS blg1a2;
 
-CREATE TABLE blg1a2_staging.users (
+CREATE TABLE blg1a2.users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     email VARCHAR(255) UNIQUE NOT NULL,
     phone TEXT UNIQUE,
@@ -16,30 +16,25 @@ CREATE TABLE blg1a2_staging.users (
     verify_token_expire TIMESTAMP,
     reset_token TEXT,
     reset_token_expire TIMESTAMP,
+    username VARCHAR(255) UNIQUE,
+    noti_pref VARCHAR(255) DEFAULT 'all', -- securityOnly, eventOnly, announcementOnly
+    favorites SMALLINT[],
+    score INTEGER DEFAULT 0,
     last_login TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- metadata
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    longid VARCHAR(255) -- unix time in ms for debugging
 );
 
-CREATE INDEX idx_user_is_verified ON blg1a2_staging.users (is_verified);
+CREATE INDEX idx_user_is_verified ON blg1a2.users (is_verified);
 
-CREATE INDEX idx_user_is_active ON blg1a2_staging.users (is_active);
+CREATE INDEX idx_user_is_active ON blg1a2.users (is_active);
 
-CREATE TABLE blg1a2_staging.profiles (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
-    user_id UUID NOT NULL UNIQUE,
-    username VARCHAR(255) UNIQUE,
-    score INTEGER DEFAULT 0,
-    noti_pref VARCHAR(255) DEFAULT 'all', -- securityOnly, eventOnly, announcementOnly
-    longid VARCHAR(255), -- unix time in ms for debugging
-    CONSTRAINT fk_profile_user FOREIGN KEY (user_id) REFERENCES blg1a2_staging.users (id)
-);
+CREATE INDEX idx_user_score ON blg1a2.users (score);
 
-CREATE INDEX idx_profile_score ON blg1a2_staging.profiles (score);
+CREATE INDEX idx_user_noti_pref ON blg1a2.users (noti_pref);
 
-CREATE INDEX idx_profile_noti_pref ON blg1a2_staging.profiles (noti_pref);
-
-CREATE TABLE blg1a2_staging.shoplists (
+CREATE TABLE blg1a2.shoplists (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     user_id UUID NOT NULL,
     list_detail INT[] NOT NULL,
@@ -47,10 +42,11 @@ CREATE TABLE blg1a2_staging.shoplists (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- metadata
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     longid TEXT, -- unix time in ms for debugging
-    CONSTRAINT fk_shoplist_user FOREIGN KEY (user_id) REFERENCES blg1a2_staging.users (id)
+    CONSTRAINT fk_shoplist_user FOREIGN KEY (user_id) REFERENCES blg1a2.users (id)
 );
 
-CREATE INDEX idx_shoplist_list_detail ON blg1a2_staging.shoplists (list_detail);
+CREATE INDEX idx_shoplist_list_detail ON blg1a2.shoplists (list_detail);
 
 COMMIT;
+
 

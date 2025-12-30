@@ -11,5 +11,90 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  schemas  = ["blg1a3"]
 }
 
+model User {
+  id            String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  username      String? @unique @db.VarChar(255)
+  email         String  @unique @db.VarChar(255)
+  phone         String? @unique
+  auth_provider String?
+  password      String?
+  role          Role?   @default(CUSTOMER1)
+  noti_pref     String? @default("all") @db.VarChar(255)
+
+  is_verified         Boolean?  @default(false)
+  is_active           Boolean?  @default(true)
+  verify_token        String?
+  verify_token_expire DateTime? @db.Timestamp(6)
+  reset_token         String?
+  reset_token_expire  DateTime? @db.Timestamp(6)
+
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+
+  bookings Booking[]
+
+  @@index([is_active], map: "idx_user_is_active")
+  @@index([is_verified], map: "idx_user_is_verified")
+  @@index([noti_pref], map: "idx_user_noti_pref")
+  @@schema("blg1a3")
+}
+
+model Booking {
+  id     String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date   DateTime @db.Timestamp(3)
+  status Status   @default(REQUESTED)
+  slot   Int      @default(1)
+  note   String?
+
+  user_id      String       @db.Uuid
+  User         User         @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "fk_booking_user")
+  discountLogs DiscountLog?
+
+  @@schema("blg1a3")
+}
+
+model Discount {
+  id              Int           @id @default(autoincrement())
+  code            String
+  type            String        @db.VarChar(255)
+  amount          Int?
+  maxUsage        Int
+  currentCapacity Int           @default(0)
+  discountLogs    DiscountLog[]
+
+  @@schema("blg1a3")
+}
+
+model DiscountLog {
+  id         Int      @id @default(autoincrement())
+  discountId Int
+  bookingId  String   @unique
+  redeemedAt DateTime @default(now())
+
+  discount Discount @relation(fields: [discountId], references: [id], onDelete: NoAction, map: "fk_discountlog_discount")
+  booking  Booking  @relation(fields: [bookingId], references: [id], map: "fk_discountlog_booking")
+
+  @@schema("blg1a3")
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER1
+  CUSTOMER2
+  CUSTOMER3
+
+  @@schema("blg1a3")
+}
+
+enum Status {
+  REQUESTED
+  CANCELED
+  CONFIRMED
+  DENIED
+  HIDDEN
+
+  @@schema("blg1a3")
+}

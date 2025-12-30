@@ -1,23 +1,14 @@
--- Insert 3 users (1 admin, 2 customers)
-INSERT INTO blg1a2_staging.users (id, email, phone, pwd, role, is_verified, is_active, created_at, updated_at)
-VALUES 
-    ('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'admin@example.com', '+84901234567', '$2b$10$hashedpassword123', 'admin', TRUE, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    ('b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', 'customer1@example.com', '+84901234568', '$2b$10$hashedpassword456', 'user2', TRUE, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    ('c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', 'customer2@example.com', '+84901234569', '$2b$10$hashedpassword789', 'user2', FALSE, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+BEGIN;
+INSERT INTO blg1a2.users (id, email, role, is_verified, username, score) VALUES 
+('a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d', 'admin@example.com', 'admin', TRUE, 'admin_user', 1000),
+('b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e', 'customer1@example.com', 'customer1', TRUE, 'shopper_jane', 450),
+('c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f', 'customer2@example.com', 'customer1', TRUE, 'shopper_mike', 320);
 
--- Insert 3 profiles (one for each user)
-INSERT INTO blg1a2_staging.profiles (id, user_id, username, score, noti_pref, longid)
-VALUES 
-    ('d3eebc99-9c0b-4ef8-bb6d-6bb9bd380a44', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'admin_user', 100, 'all', '1703001234567'),
-    ('e4eebc99-9c0b-4ef8-bb6d-6bb9bd380a55', 'b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', 'shopper_one', 50, 'all', '1703001234568'),
-    ('f5eebc99-9c0b-4ef8-bb6d-6bb9bd380a66', 'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', 'shopper_two', 25, 'eventOnly', '1703001234569');
-
--- Insert 5 shoplists (distributed among users)
-INSERT INTO blg1a2_staging.shoplists (id, user_id, list_detail, note, created_at, updated_at, longid)
-VALUES 
-    ('10eebc99-9c0b-4ef8-bb6d-6bb9bd380a77', 'b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', ARRAY[1, 2, 3], 'Weekly groceries', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234567'),
-    ('11eebc99-9c0b-4ef8-bb6d-6bb9bd380a88', 'b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', ARRAY[2, 5], 'Party supplies', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234568'),
-    ('12eebc99-9c0b-4ef8-bb6d-6bb9bd380a99', 'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', ARRAY[3, 2, 4], 'Home essentials', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234569'),
-    ('13eebc99-9c0b-4ef8-bb6d-6bb9bd380aaa', 'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', ARRAY[4], 'Quick snack run', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234570'),
-    ('14eebc99-9c0b-4ef8-bb6d-6bb9bd380abb', 'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', ARRAY[5, 2, 3, 4], 'Office supplies audit', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1703002234571');
+INSERT INTO blg1a2.shoplists (id, user_id, list_detail, note) VALUES 
+('d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a', 'b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e', ARRAY[1,2,3,5], 'Weekly groceries'),
+('e5f6a7b8-c9d0-4e5f-2a3b-4c5d6e7f8a9b', 'b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e', ARRAY[4,2,3], 'Electronics'),
+('f6a7b8c9-d0e1-4f5a-3b4c-5d6e7f8a9b0c', 'b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e', ARRAY[3,2], 'Holiday gifts'),
+('a7b8c9d0-e1f2-4a5b-4c5d-6e7f8a9b0c1d', 'c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f', ARRAY[1,6], 'Hardware store'),
+('b8c9d0e1-f2a3-4b5c-5d6e-7f8a9b0c1d2e', 'c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f', ARRAY[5,2], 'Books');
+COMMIT;
 

@@ -1,0 +1,25 @@
+meta {
+  name: createDish
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:1122/v1/dish/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "dishName":"newdish3",
+    "dishDesc":"merndish3 yoo",
+    "dishServing":2,
+    "dishMeal":3
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

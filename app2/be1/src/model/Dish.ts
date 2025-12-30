@@ -10,11 +10,11 @@ const dishSchema = new mongoose.Schema(
                type: String,
                required: true
           },
-          servings: {
+          serving: {
                type: Number,
                required: false
           },
-          meals: {
+          meal: {
                type: Number,
                required: false
           }
