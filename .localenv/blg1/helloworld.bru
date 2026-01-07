@@ -1,0 +1,24 @@
+meta {
+  name: helloworld
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8000/analyze2
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  file: @file(/home/syslord1/REPO1/assignment2/.localenv/resized/img3.png)
+}
+
+body:file {
+  file: @file(/home/syslord1/REPO1/assignment2/.localenv/resized/img3.png) @contentType(image/png)
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
